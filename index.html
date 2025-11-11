@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- React and ReactDOM must come first -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- Babel compiler -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Your React code -->
+    <script type="text/babel">
+        // Also it's a requirement in react that you create the components with the first letter uppercase
+         /* This below is a react component which is a basically a reusable piece of UI 
+            React apps are made using different components*/
+          /* React consists of properties or props that serve like an input to a react component */
+        function Hello(props){ // props is a way to have the component access properties
+          return(
+            <h1>Hello, {props.name}!</h1> // we are accessing the name property inside props
+          )
+        }
+        function App() {
+            // we are using state here to check if the use pressed the button of send
+            
+            // we are rendering a component inside of another component - The reusablity of code 
+            return( // below we are rendering the React component we created 'Hello' inside a div and name is a property that we provide
+                <div>
+                    <Hello name="Harry"/>
+                    <Hello name="Ron"/>
+                    <Hello name="Hermione"/>
+                </div>
+            )
+        }
+        // After we have created a component we can add it to the webpage by rendering it
+        ReactDOM.render(<App />, document.querySelector('#app')); // the .render method takes the component to render and where to render it
+    </script>
+  </body>
+</html>

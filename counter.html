@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Counter</title>
+    </head>
+    <body>
+        <div id="app"></div>
+
+        <!-- React and ReactDOM must come first -->
+        <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+        <!-- Babel compiler -->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <script type="text/babel">
+            /* React component have access to what's called a state it's a way for a react component to store data in memory and it's mutable too*/
+            const { useState } = React;
+            function App(){
+                /* Let's create a state using useState() which returns an array with two values
+                    one is a variable with the current value of the thing we wanna store
+                    other is one is a function that we call if we wanna modify that value
+                    Also, the useState function takes as a input the default value of the cariable you wanna set*/               
+                const [count, setCount] = useState(0);
+                // the function to update the count
+                function updateCount(){
+                    setCount(count + 1); // accessing the count variable using the specific function for it
+                }
+                return(
+                    <div>
+                        <div>{ count }</div>
+                        <button onClick={ updateCount }>Count</button>
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<App />, document.querySelector('#app'));
+        </script>
+    </body>
+</html>
