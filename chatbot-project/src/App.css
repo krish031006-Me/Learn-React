@@ -1,42 +1,95 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+/* This CSS file contains properties that are for this App component only*/
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@keyframes digin{
+  0%{
+    width: 80px;
+    height:40px;
+  }50%{
+    width:70px;
+    height: 30px;
+  }100%{
+    width: 80px;
+    height:40px;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+button{
+  background-color: rgb(25, 135, 84);
+  color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
+  border: none;
+  font-size: 15px;
+  margin: 10px;
+  cursor: pointer;
 }
-
-.card {
-  padding: 2em;
+.digin{
+  animation-name: digin;
+  animation-duration: 1s;
+  animation-fill-mode: none;
 }
-
-.read-the-docs {
-  color: #888;
+.inputBar{
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 10px 15px;
+  font-size: 15px;
+  /* This property below makes the element take up all the space in the same row block*/
+  flex-grow: 1;
+  height: 20px;
+  margin-top: 10px;
+}
+.input-container{
+  display: flex;
+  margin-bottom: 60px;
+}
+.app-container{
+  /* by default flexbox position everything in a horizontal way ao we need to change that 
+    make it work on vertical rows*/
+  display: flex;
+  /* flex-direction property controls how the elements will be positioned 
+    by default it's set to row with having multiple rows in horizontal direction*/
+  flex-direction: column;
+  max-width: 700px;
+  /* These two below are for centering*/
+  margin-left: auto;
+  margin-right: auto;
+  /* 100vh means 100% of the height of the browser
+    This will provide us the whole webpage that is visible to us
+    and vh viewport height*/
+  height: 100vh;
+}
+.user-message{
+  display: flex;
+  justify-content: end;
+  /* align-items property doesn't allow the elements inside the flexbox to stretch*/
+  align-items: start;
+  margin-top: 10px;
+}
+.robot-message{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+.chat-message{
+  background-color: rgb(238, 238, 238);
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px; 
+  max-width: 300px; 
+}
+img{
+  width: 45px;
+}
+.chat-messages-container{
+  /* we did this to push the input text bar to the bottom*/
+  flex-grow: 1;
+  margin-top: 10px;
+  /* Before adding this below property whenever there are too many messages they get scrolled down 
+    but overflow property controls that and we have set it to flow which avoids the pushing of the input bar
+    and let's the messages be scrollable*/
+  overflow: scroll;
+  /* to hide the scroll bars*/
+  scrollbar-width: none;
 }
