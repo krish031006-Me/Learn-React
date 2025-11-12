@@ -1,0 +1,14 @@
+img{
+  width: 45px;
+}
+.chat-messages-container{
+  /* we did this to push the input text bar to the bottom*/
+  flex-grow: 1;
+  margin-top: 10px;
+  /* Before adding this below property whenever there are too many messages they get scrolled down 
+    but overflow property controls that and we have set it to flow which avoids the pushing of the input bar
+    and let's the messages be scrollable*/
+  overflow: scroll;
+  /* to hide the scroll bars*/
+  scrollbar-width: none;
+}
