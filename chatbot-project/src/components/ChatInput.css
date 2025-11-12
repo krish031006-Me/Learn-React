@@ -1,0 +1,43 @@
+@keyframes digin{
+  0%{
+    width: 80px;
+    height:40px;
+  }50%{
+    width:70px;
+    height: 30px;
+  }100%{
+    width: 80px;
+    height:40px;
+  }
+}
+
+button{
+  background-color: rgb(25, 135, 84);
+  color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 40px;
+  border: none;
+  font-size: 15px;
+  margin: 10px;
+  cursor: pointer;
+}
+.digin{
+  animation-name: digin;
+  animation-duration: 1s;
+  animation-fill-mode: none;
+}
+.inputBar{
+  border-radius: 10px;
+  border-width: 1px;
+  padding: 10px 15px;
+  font-size: 15px;
+  /* This property below makes the element take up all the space in the same row block*/
+  flex-grow: 1;
+  height: 20px;
+  margin-top: 10px;
+}
+.input-container{
+  display: flex;
+  margin-bottom: 60px;
+}
