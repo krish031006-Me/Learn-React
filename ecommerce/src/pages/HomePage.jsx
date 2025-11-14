@@ -8,6 +8,7 @@ export function HomePage() {
     const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
+        // We can make the url shorter by using the server-proxy configuration 
         // The API call to fetch the products for the home page
         fetch('http://localhost:3000/api/products')
             .then((response) => {
