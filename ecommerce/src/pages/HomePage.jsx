@@ -1,30 +1,22 @@
 import { Header } from '../components/Header';
 import './HomePage.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export function HomePage() {
-    // These are states for setting up products and the cart
+export function HomePage({ cart }) { 
+    // These are states for setting up products 
     const [products, setProducts] = useState([]);
-    const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
         // We can make the url shorter by using the server-proxy configuration 
         // The API call to fetch the products for the home page
-        fetch('http://localhost:3000/api/products')
+        axios.get('/api/products')
             .then((response) => {
                 // This is how we can get the data associated with the response asynchronously
-                return response.json();
+                setProducts(response.data);
             })
-            .then((data) => {
-                setProducts(data);
-            });
-        // The API call to fetch the cart items
-        fetch('http://localhost:3000/api/cart-items')
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setCartItems(data);
+            .catch((err) => {
+                console.log(err);
             })
     }, []);
 
@@ -35,7 +27,7 @@ export function HomePage() {
         <>
             <title>Ecommerce</title>
 
-            <Header cart={cartItems}/>
+            <Header cart={cart}/>
 
             <div className="home-page">
                 <div className="products-grid">
