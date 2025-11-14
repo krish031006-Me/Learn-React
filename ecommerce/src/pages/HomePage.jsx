@@ -3,9 +3,12 @@ import './HomePage.css';
 import { useEffect, useState } from 'react';
 
 export function HomePage() {
-
+    // These are states for setting up products and the cart
     const [products, setProducts] = useState([]);
+    const [cartItems, setCartItems] = useState([]);
+
     useEffect(() => {
+        // The API call to fetch the products for the home page
         fetch('http://localhost:3000/api/products')
             .then((response) => {
                 // This is how we can get the data associated with the response asynchronously
@@ -14,6 +17,14 @@ export function HomePage() {
             .then((data) => {
                 setProducts(data);
             });
+        // The API call to fetch the cart items
+        fetch('http://localhost:3000/api/cart-items')
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setCartItems(data);
+            })
     }, []);
 
     /* Below we will be using map function to automatically create the HTML for the products
@@ -23,7 +34,7 @@ export function HomePage() {
         <>
             <title>Ecommerce</title>
 
-            <Header />
+            <Header cart={cartItems}/>
 
             <div className="home-page">
                 <div className="products-grid">
