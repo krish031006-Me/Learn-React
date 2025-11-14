@@ -1,8 +1,21 @@
-import { Header } from '../components/Header'
+import { Header } from '../components/Header';
 import './HomePage.css';
-import { products } from '../../../ecommerce-project-main/data/products'
+import { useEffect, useState } from 'react';
 
 export function HomePage() {
+
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:3000/api/products')
+            .then((response) => {
+                // This is how we can get the data associated with the response asynchronously
+                return response.json();
+            })
+            .then((data) => {
+                setProducts(data);
+            });
+    }, []);
+
     /* Below we will be using map function to automatically create the HTML for the products
         and inside we used kind of like Jinja-ish syntax to access the props
         Also, we used a function toFixed() to convert the number to a fixed number of decimal places*/
