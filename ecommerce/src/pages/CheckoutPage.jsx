@@ -6,16 +6,33 @@ import './checkout-header.css';
 import { Money } from '../utils/money';
 
 export function CheckoutPage({ cart }) {
-    // Using the State to store delievery options
+    // Using the State to store delivery options and payment summary
     const [deliveryOptions, setDeliveryOptions] = useState([]);
+    const [paymentSummary, setPaymentSummary] = useState(null);
 
-    // Calling the Api for delievery options
+    // Calling the Api for delivery options and payment summaries
     useEffect(() => {
-        axios.get("/api/delivery-options?expland=estimatedDeliveryTime")
-            .then((response) => {
-                setDeliveryOptions(response.data);
-            })
-    }, []);
+    console.log("useEffect triggered");
+
+    axios.get("/api/delivery-options?expand=estimatedDeliveryTime")
+        .then(res => {
+            console.log("Delivery success:", res.data);
+            setDeliveryOptions(res.data);
+        })
+        .catch(err => {
+            console.log("Delivery API error:", err);
+        });
+
+    axios.get("/api/payment-summary")
+        .then(res => {
+            console.log("Payment success:", res.data);
+            setPaymentSummary(res.data);
+        })
+        .catch(err => {
+            console.log("Payment API error:", err);
+        });
+
+}, []);
 
     return ( // We are also changing the title of the page from here despite having some other title in /
         <>
@@ -124,30 +141,41 @@ export function CheckoutPage({ cart }) {
                         <div className="payment-summary-title">
                             Payment Summary
                         </div>
-
-                        <div className="payment-summary-row">
-                            <div>Items (3):</div>
-                            <div className="payment-summary-money">$42.75</div>
+                        
+                        <div className="payment-summary-row">                    
+                            <div>Items ({paymentSummary?.totalItems // We used a ? here which acts like a if-else statement if paymentSummary exists then fo this
+                            }):</div> 
+                            <div className="payment-summary-money">
+                                {Money(paymentSummary?.productCostCents)}
+                            </div>
                         </div>
 
                         <div className="payment-summary-row">
                             <div>Shipping &amp; handling:</div>
-                            <div className="payment-summary-money">$4.99</div>
+                            <div className="payment-summary-money">
+                                {Money(paymentSummary?.shippingCostCents)}
+                            </div>
                         </div>
 
                         <div className="payment-summary-row subtotal-row">
                             <div>Total before tax:</div>
-                            <div className="payment-summary-money">$47.74</div>
+                            <div className="payment-summary-money">
+                                {Money(paymentSummary?.totalCostBeforeTaxCents)}
+                            </div>
                         </div>
 
                         <div className="payment-summary-row">
                             <div>Estimated tax (10%):</div>
-                            <div className="payment-summary-money">$4.77</div>
+                            <div className="payment-summary-money">
+                                {Money(paymentSummary?.taxCents)}
+                            </div>
                         </div>
 
                         <div className="payment-summary-row total-row">
                             <div>Order total:</div>
-                            <div className="payment-summary-money">$52.51</div>
+                            <div className="payment-summary-money">
+                                {Money(paymentSummary?.totalCostCents)}
+                            </div>
                         </div>
 
                         <button className="place-order-button button-primary">

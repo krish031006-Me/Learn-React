@@ -8,8 +8,9 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
-  // Using the state to store the reuslta from cart API
+  // Using the state to store the reuslt from cart API
   const [cartItems, setCartItems] = useState([]);
+
   // Using the useEffect() to call the API and fetch cart details
   useEffect(() => {
     axios.get('/api/cart-items?expand=product') 
@@ -19,7 +20,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }, []);
 
   /* The routes component we have here tell the browser the pages we wanna add to our web app
