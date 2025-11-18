@@ -3,7 +3,7 @@ import { useNavigate } from "react-router"; // This hook can be used to get to s
 import axios from "axios";
 
 export function PaymentSummary({ paymentSummary, loadCart }) {
-    // Creating an instace of useNavigate hook
+    // Storing the return value of useNavigate() that is a function itself to be used later for navigation.
     const navigate = useNavigate();
 
     const placeOrder = async() => {
