@@ -10,28 +10,23 @@ export function CheckoutPage({ cart, loadCart }) {
     const [deliveryOptions, setDeliveryOptions] = useState([]);
     const [paymentSummary, setPaymentSummary] = useState(null);
 
-    // Calling the Api for delivery options and payment summaries
+    // Calling the Api for delivery options
     useEffect(() => {
+        const fetchCheckedData = async () => {
+            let response = await axios.get("/api/delivery-options?expand=estimatedDeliveryTime");
+            setDeliveryOptions(response.data);
+        }
+        fetchCheckedData();
+    }, []);
 
-    axios.get("/api/delivery-options?expand=estimatedDeliveryTime")
-        .then(res => {
-            console.log("Delivery success:", res.data);
-            setDeliveryOptions(res.data);
-        })
-        .catch(err => {
-            console.log("Delivery API error:", err);
-        });
-
-    axios.get("/api/payment-summary")
-        .then(res => {
-            console.log("Payment success:", res.data);
-            setPaymentSummary(res.data);
-        })
-        .catch(err => {
-            console.log("Payment API error:", err);
-        });
-
-}, []);
+    // Calling the API for payment summaries
+    useEffect(() => {
+        const summarisePayment = async () => {
+            const response = axios.get("/api/payment-summary");
+            setPaymentSummary(response.data);
+        }
+        summarisePayment();
+    }, [cart]);
 
     return ( // We are also changing the title of the page from here despite having some other title in /
         <>
@@ -61,8 +56,8 @@ export function CheckoutPage({ cart, loadCart }) {
                 <div className="page-title">Review your order</div>
 
                 <div className="checkout-grid">
-                    <OrderSummary deliveryOptions={deliveryOptions} cart={cart} loadCart={loadCart}/>
-                    <PaymentSummary paymentSummary={paymentSummary}/>
+                    <OrderSummary deliveryOptions={deliveryOptions} cart={cart} loadCart={loadCart} />
+                    <PaymentSummary paymentSummary={paymentSummary} />
                 </div>
             </div>
         </>
