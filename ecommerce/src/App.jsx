@@ -1,6 +1,6 @@
 import { CheckoutPage } from './pages/checkout/CheckoutPage'
 import { OrdersPage } from './pages/orders/OrdersPage';
-import { TrackingPage } from './pages/TrackingPage';
+import { TrackingPage } from './pages/tracking/TrackingPage';
 import { Routes, Route } from 'react-router';
 import { HomePage } from './pages/home/HomePage';
 import { useEffect, useState } from 'react';
@@ -29,7 +29,7 @@ function App() {
   return ( // Route takes the path to the webpage and the HTML component we need to render also for path = / we can simply use word 'index'
     <Routes>
       <Route index element={<HomePage cart={cartItems} loadCart={loadCart}/>}></Route>
-      <Route path='checkout' element={<CheckoutPage cart={cartItems} />} />
+      <Route path='checkout' element={<CheckoutPage cart={cartItems} loadCart={loadCart}/>} />
       <Route path='orders' element={<OrdersPage cart={cartItems} />} />
       <Route path='tracking' element={<TrackingPage />} />
     </Routes>

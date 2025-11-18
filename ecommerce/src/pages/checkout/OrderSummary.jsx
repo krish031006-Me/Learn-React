@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import {Money} from "../../utils/money"
 import { DeliveryOptions } from './DeliveryOption'
 
-export function OrderSummary({ deliveryOptions, cart }) {
+export function OrderSummary({ deliveryOptions, cart, loadCart }) {
     return (
         <div className="order-summary">
             {deliveryOptions.length > 0 && cart.map((cartItem) => { // That's the use of guard operator it'll work like a if-else now!
@@ -45,7 +45,7 @@ export function OrderSummary({ deliveryOptions, cart }) {
                                 </div>
                             </div>
 
-                            <DeliveryOptions deliveryOptions={deliveryOptions} cartItem={cartItem}/>
+                            <DeliveryOptions deliveryOptions={deliveryOptions} cartItem={cartItem} loadCart={loadCart}/>
                         </div>
                     </div>
                 );
