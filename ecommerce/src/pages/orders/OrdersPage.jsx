@@ -1,5 +1,4 @@
 import { OrdersGrid } from './OrdersGrid'
-import { Money } from '../../utils/money'
 import axios from "axios";
 import { useState, useEffect, Fragment } from "react";
 import './OrdersPage.css';
@@ -10,13 +9,11 @@ export function OrdersPage({ cart }) {
     const [orders, setOrders] = useState([]);
     // calling backend API using axios to get the orders of the user
     useEffect(() => {
-        axios.get("/api/orders?expand=products")
-            .then((response) => {
-                setOrders(response.data)
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        const getData = async () => {
+            let response = axios.get("/api/orders?expand=products")
+            setOrders(response.data);
+        }
+        getData();
     }, []);
 
     return (
@@ -28,7 +25,7 @@ export function OrdersPage({ cart }) {
             <div className="orders-page">
                 <div className="page-title">Your Orders</div>
 
-            <OrdersGrid orders={orders}/>
+                <OrdersGrid orders={orders} />
             </div>
         </>
     );
