@@ -10,7 +10,7 @@ export function OrdersPage({ cart }) {
     // calling backend API using axios to get the orders of the user
     useEffect(() => {
         const getData = async () => {
-            let response = axios.get("/api/orders?expand=products")
+            let response = await axios.get("/api/orders?expand=products")
             setOrders(response.data);
         }
         getData();
