@@ -1,6 +1,10 @@
 import { it, describe, vi, expect } from "vitest";
+import userEvent from "@testing-library/user-event"; // library for testing of user-interactions
 import { render, screen } from "@testing-library/react"; // We are importing scrren to see the fake webpage during testing
 import { ProductQuantity } from "./ProductQuantity";
+import axios from "axios"; // The fake axios
+
+vi.mock("axios"); // Here we are creating an fake axios package and whenever the axios will be imported or used it'll be the fake one
 
 /* In this file we will be running an integration test
     Integration tests are used to test whole components working together 
@@ -61,4 +65,28 @@ describe('ProductQuantity component', () => {
             screen.getByText("127")
         ).toBeInTheDocument();
     });
+
+    // a new test to check for user interactions
+    it('adds a product to the cart', async() => { // This function is async cause below we wait for the user to click a button which is asynchronus
+        render(<ProductQuantity product={product} loadCart={loadCart}/>)
+
+        const user = userEvent.setup(); // setting up a new user
+        const addToCart = screen.getByTestId('add-to-cart-button'); // getting the addToCart button
+        await user.click(addToCart); // Checking if user clicked on the button
+
+        /* Now we check if the button did whatever it had to do 
+            The real addtocart button makes a backend request when clicked but as we don't contact backend in tests
+            we need to mock the whole npm package that is axios*/
+
+        // We check if the axios.post was called with the correct values
+        expect(axios.post).toHaveBeenCalledWith(
+            '/api/cart-items',
+            {
+                productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+                quantity: 1
+            }
+        )
+        // To see if loadCart was called or not
+        expect(loadCart).toHaveBeenCalled();
+    })
 });
