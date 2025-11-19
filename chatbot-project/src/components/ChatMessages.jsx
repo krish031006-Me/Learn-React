@@ -22,7 +22,7 @@ function ChatMessages({ chatMessages }){
       // scrollTop is how far from the top should we scroll and scrollHeight is total height of the element
       containerElem.scrollTop = containerElem.scrollHeight;
     }
-  }, [chatMessages]); 
+  }, [chatMessages]);
 
   /* The array at the end of useEffect if the dependency array it controls when useEffect() runs
     if it's not given then it runs after every render
