@@ -18,63 +18,69 @@ export function ProductQuantity({ product, loadCart }) {
         await loadCart();
     }
 
-        // The function to update the quantity in the state
-        const updateQuantity = (event) => {
-            const selectedQuantity = Number(event.target.value); // We are converting the string into a number here                        
-            setQuantity(selectedQuantity);
-        }
-            // Only rendering the component when product is loaded
-            if (product) {
-                return (
-                    <div key={product.id} className="product-container">
-                        <div className="product-image-container">
-                            <img className="product-image"
-                                src={product.image} />
-                        </div>
+    // The function to update the quantity in the state
+    const updateQuantity = (event) => {
+        const selectedQuantity = Number(event.target.value); // We are converting the string into a number here                        
+        setQuantity(selectedQuantity);
+    }
+    // Only rendering the component when product is loaded
+    if (!product) {
+        return null;
+    }
+    return (
+        <div key={product.id} className="product-container">
+            <div className="product-image-container">
+                {
+                    // THis above data attribute is provided so that we can use it later to check for image during the testing
+                }
+                <img className="product-image"
+                    data-testid="product-image" 
+                    src={product.image} />
+            </div>
 
-                        <div className="product-name limit-text-to-2-lines">
-                            {product.name}
-                        </div>
+            <div className="product-name limit-text-to-2-lines">
+                {product.name}
+            </div>
 
-                        <div className="product-rating-container">
-                            <img className="product-rating-stars"
-                                src={`images/ratings/rating-${product.rating.stars * 10}.png`} />
-                            <div className="product-rating-count link-primary">
-                                {product.rating.count}
-                            </div>
-                        </div>
+            <div className="product-rating-container">
+                <img className="product-rating-stars"
+                    data-testid = "rating-image"
+                    src={`images/ratings/rating-${product.rating.stars * 10}.png`} />
+                <div className="product-rating-count link-primary">
+                    {product.rating.count}
+                </div>
+            </div>
 
-                        <div className="product-price">
-                            {Money(product.priceCents)}
-                        </div>
+            <div className="product-price">
+                {Money(product.priceCents)}
+            </div>
 
-                        <div className="product-quantity-container">
-                            <select value={quantity} onChange={updateQuantity}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select>
-                        </div>
+            <div className="product-quantity-container">
+                <select value={quantity} onChange={updateQuantity}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>
 
-                        <div className="product-spacer"></div>
+            <div className="product-spacer"></div>
 
-                        <div className="added-to-cart">
-                            <img src="images/icons/checkmark.png" />
-                            Added
-                        </div>
+            <div className="added-to-cart">
+                <img src="images/icons/checkmark.png" />
+                Added
+            </div>
 
-                        <button className="add-to-cart-button button-primary"
-                            onClick={addToCart}>
-                            Add to Cart
-                        </button>
-                    </div>
-                );
-            }
-        }
+            <button className="add-to-cart-button button-primary"
+                onClick={addToCart}>
+                Add to Cart
+            </button>
+        </div>
+    );
+}
