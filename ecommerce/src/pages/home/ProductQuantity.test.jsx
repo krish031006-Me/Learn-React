@@ -1,4 +1,4 @@
-import { it, describe, vi, expect } from "vitest";
+import { it, describe, vi, expect, beforeEach } from "vitest";
 import userEvent from "@testing-library/user-event"; // library for testing of user-interactions
 import { render, screen } from "@testing-library/react"; // We are importing scrren to see the fake webpage during testing
 import { ProductQuantity } from "./ProductQuantity";
@@ -18,25 +18,32 @@ vi.mock("axios"); // Here we are creating an fake axios package and whenever the
 describe('ProductQuantity component', () => {
 
     // This is a sample product to render ProductQuantity
-    const product = {
-        "keywords": [
-            "sports",
-            "basketballs"
-        ],
-        "id": "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-        "image": "images/products/intermediate-composite-basketball.jpg",
-        "name": "Intermediate Size Basketball",
-        "rating": {
-            "stars": 4,
-            "count": 127
-        },
-        "priceCents": 2095,
-        "createdAt": "2025-11-14T08:47:14.930Z",
-        "updatedAt": "2025-11-14T08:47:14.930Z"
-    };
-
+    let product;
     // We are here creating a fake function to replace the loadCart function using vi we imported above
-    const loadCart = vi.fn();
+    let loadCart;
+
+    /* If we declare everything before tests and used them there are chances they mights be changed during the process 
+        to avoid that we make sure the variables used will have correct values before we run every function*/
+    beforeEach(() => { // THis is a test hook there are another test hooks such as afterEach(), beforeAll(), afterAll()
+        product = {
+            "keywords": [
+                "sports",
+                "basketballs"
+            ],
+            "id": "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+            "image": "images/products/intermediate-composite-basketball.jpg",
+            "name": "Intermediate Size Basketball",
+            "rating": {
+                "stars": 4,
+                "count": 127
+            },
+            "priceCents": 2095,
+            "createdAt": "2025-11-14T08:47:14.930Z",
+            "updatedAt": "2025-11-14T08:47:14.930Z"
+        };
+
+        loadCart = vi.fn();
+    })
 
     // The test we need to do
     it('displays the product details correctly', () => {
@@ -54,8 +61,8 @@ describe('ProductQuantity component', () => {
         // get the image element for testing
         expect(
             screen.getByTestId('product-image') // will return an image element
-        // The method below is used to check if some attribute of an element matches the value that we provide
-        ).toHaveAttribute("src", "images/products/intermediate-composite-basketball.jpg"); 
+            // The method below is used to check if some attribute of an element matches the value that we provide
+        ).toHaveAttribute("src", "images/products/intermediate-composite-basketball.jpg");
         // THis is the test to check if the rating image added is correct
         expect(
             screen.getByTestId("rating-image") // will return the rating image
@@ -67,8 +74,8 @@ describe('ProductQuantity component', () => {
     });
 
     // a new test to check for user interactions
-    it('adds a product to the cart', async() => { // This function is async cause below we wait for the user to click a button which is asynchronus
-        render(<ProductQuantity product={product} loadCart={loadCart}/>)
+    it('adds a product to the cart', async () => { // This function is async cause below we wait for the user to click a button which is asynchronus
+        render(<ProductQuantity product={product} loadCart={loadCart} />)
 
         const user = userEvent.setup(); // setting up a new user
         const addToCart = screen.getByTestId('add-to-cart-button'); // getting the addToCart button
