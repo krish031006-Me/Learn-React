@@ -28,7 +28,8 @@ export function ProductQuantity({ product, loadCart }) {
         return null;
     }
     return (
-        <div key={product.id} className="product-container">
+        <div key={product.id} className="product-container"
+            data-testid="product-container">
             <div className="product-image-container">
                 {
                     // THis above data attribute is provided so that we can use it later to check for image during the testing
