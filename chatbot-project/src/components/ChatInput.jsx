@@ -14,6 +14,8 @@ export function ChatInput({ chatMessages, setChatMessages }){ // we used the exp
     setText(event.target.value);
   }
 
+  // THis is the function to alter the class name when 
+
   // This is the function that will allow us to send message to the user
   function sendMessage(){
     /* But we do not have access to the setChatMessages() in this component of ours so we need to lift the state up
