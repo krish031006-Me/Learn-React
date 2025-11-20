@@ -20,7 +20,7 @@ export function ChatInput({ chatMessages, setChatMessages }){ // we used the exp
       into the parent component so that the child components can also access this state
       here the parent component is App so we will move the state there 
       and then we can access the state by using specific props for every child from the parent component*/
-    /* the components the rendered by React when all the code is finished - IT"S IMPORTANT 
+    /* the components are rendered by React when all the code is finished - IT"S IMPORTANT 
       below the two simultaneous update calls for the state results in the first call to be ignored cause the program didn't finish then
       so we will add the things we wanna add for the first call in an element and then use that saved variable into the
       second call instead of ...chatMessages*/

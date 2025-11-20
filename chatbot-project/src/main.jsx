@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 
 // While rendering we are wrapping the App component in StrictMode component which provides us additional checking for errors and all
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')).render( 
   <StrictMode>
     <App />
   </StrictMode>,

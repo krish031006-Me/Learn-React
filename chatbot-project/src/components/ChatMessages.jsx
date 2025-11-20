@@ -21,7 +21,7 @@ function ChatMessages({ chatMessages }){
     if(containerElem){
       // scrollTop is how far from the top should we scroll and scrollHeight is total height of the element
       containerElem.scrollTop = containerElem.scrollHeight;
-    }
+    } 
   }, [chatMessages]);
 
   /* The array at the end of useEffect if the dependency array it controls when useEffect() runs
@@ -56,7 +56,7 @@ function ChatMessages({ chatMessages }){
         /* chatMessage references every object we have inside the chatMessages array
             we can change the value of every key inside the object using the referencing we have
             Whenever we insert some array of components React expects us to give each element a unique key*/
-        return( // This below inside Fragment we gave it a unique key cause it showerd a warning without it it's used inside map so had too
+        return( // This below inside Fragment we gave it a unique key cause it showed a warning without it it's used inside map so had too
           <Fragment key={crypto.randomUUID()}>     
             <ChatMessage 
               message={chatMessage.message}
